@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { editName, selectName } from "./features/currentUser/currentUserSlice";
+import {
+  editName,
+  loadUser,
+  selectName,
+} from "./features/currentUser/currentUserSlice";
 
 function App() {
   const name = useSelector(selectName);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
 
   const dispatch = useDispatch();
   return (

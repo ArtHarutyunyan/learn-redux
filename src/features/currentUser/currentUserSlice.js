@@ -1,3 +1,5 @@
+import { loadCurrentUser } from "./currentUserAPI";
+
 export function currentUserReducer(state = {}, action) {
   if (action.type === "edit-current-user-name") {
     return {
@@ -9,7 +11,7 @@ export function currentUserReducer(state = {}, action) {
 }
 
 export const initialCurrentUser = {
-  name: "Jon Smeit",
+  name: "Jon Smit",
 };
 
 export function selectName(state) {
@@ -22,5 +24,13 @@ export function editName(newName) {
     payload: {
       name: newName,
     },
+  };
+}
+
+export function loadUser() {
+  return (dispatch, getState) => {
+    return loadCurrentUser().then((loadedUser) => {
+      dispatch(editName(loadedUser.name));
+    });
   };
 }
